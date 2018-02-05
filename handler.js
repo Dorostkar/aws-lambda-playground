@@ -9,6 +9,19 @@ module.exports.hello = (event, context, callback) => {
       })
     });
   }
+
+  if (event.httpMethod === 'POST' && event.body) {
+    let json = JSON.parse(event.body);
+
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: `Hi, I have recived a JSON object from you.`,
+        object: json
+      })
+    });
+  }
+
   const response = {
     statusCode: 200,
     body: JSON.stringify({
