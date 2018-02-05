@@ -1,6 +1,14 @@
 'use strict';
 
 module.exports.hello = (event, context, callback) => {
+  if (event.queryStringParameters && event.queryStringParameters.name) {
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: `Hello ${event.queryStringParameters.name}, nice too meet you`
+      })
+    });
+  }
   const response = {
     statusCode: 200,
     body: JSON.stringify({
